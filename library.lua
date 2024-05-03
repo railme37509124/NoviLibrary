@@ -433,6 +433,150 @@ lib.NewLibrary = function(ver)
 					return button
 				end
 				
+				function Tab_:NewSlider(name, oargs)
+					local SliderOp = {Name = "", MaxValue = 1, MinValue = 0, Value = 0, Callback = function() end}
+					
+					local Slider = Instance.new("Frame")
+					local UICorner = Instance.new("UICorner")
+					local toggled = Instance.new("TextLabel")
+					local SliderValue = Instance.new("TextLabel")
+					local SliderF = Instance.new("Frame")
+					local UICorner_2 = Instance.new("UICorner")
+					local Frame = Instance.new("Frame")
+					local UICorner_3 = Instance.new("UICorner")
+					local Slider_2 = Instance.new("Frame")
+					local UICorner_4 = Instance.new("UICorner")
+					local TextButton = Instance.new("TextButton")
+					local UICorner_5 = Instance.new("UICorner")
+					
+					Slider.Name = "Slider"
+					Slider.Parent = options.ScrollingFrame
+					Slider.BackgroundColor3 = Color3.fromRGB(24, 24, 24)
+					Slider.BorderColor3 = Color3.fromRGB(0, 0, 0)
+					Slider.BorderSizePixel = 0
+					Slider.ClipsDescendants = true
+					Slider.Position = UDim2.new(0.0125668179, 0, 0.194594204, 0)
+					Slider.Size = UDim2.new(0, 389, 0, 79)
+
+					UICorner.CornerRadius = UDim.new(0, 5)
+					UICorner.Parent = Slider
+
+					toggled.Name = "toggled"
+					toggled.Parent = Slider
+					toggled.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+					toggled.BackgroundTransparency = 1.000
+					toggled.BorderColor3 = Color3.fromRGB(0, 0, 0)
+					toggled.BorderSizePixel = 0
+					toggled.Position = UDim2.new(0.0394599363, 0, 0.0867089406, 0)
+					toggled.Size = UDim2.new(0.85771215, 0, 0.345885962, 0)
+					toggled.Font = Enum.Font.Gotham
+					toggled.Text = name
+					toggled.TextColor3 = Color3.fromRGB(255, 255, 255)
+					toggled.TextSize = 19.000
+					toggled.TextWrapped = true
+					toggled.TextXAlignment = Enum.TextXAlignment.Left
+
+					SliderValue.Name = "SliderValue"
+					SliderValue.Parent = Slider
+					SliderValue.AnchorPoint = Vector2.new(1, 0)
+					SliderValue.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+					SliderValue.BackgroundTransparency = 1.000
+					SliderValue.BorderColor3 = Color3.fromRGB(0, 0, 0)
+					SliderValue.BorderSizePixel = 0
+					SliderValue.Position = UDim2.new(0.982005119, 0, 0.0867089406, 0)
+					SliderValue.Size = UDim2.new(0.323007762, 0, 0.345885962, 0)
+					SliderValue.Font = Enum.Font.Gotham
+					SliderValue.Text = SliderOp.Value
+					SliderValue.TextColor3 = Color3.fromRGB(255, 255, 255)
+					SliderValue.TextSize = 19.000
+					SliderValue.TextWrapped = true
+					SliderValue.TextXAlignment = Enum.TextXAlignment.Right
+
+					SliderF.Name = "SliderF"
+					SliderF.Parent = Slider
+					SliderF.AnchorPoint = Vector2.new(0, 1)
+					SliderF.BackgroundColor3 = Color3.fromRGB(25, 25, 25)
+					SliderF.BorderColor3 = Color3.fromRGB(0, 0, 0)
+					SliderF.BorderSizePixel = 0
+					SliderF.ClipsDescendants = true
+					SliderF.Position = UDim2.new(0, 0, 1.00000036, 0)
+					SliderF.Size = UDim2.new(1, 0, 0.567405224, 0)
+
+					UICorner_2.CornerRadius = UDim.new(0, 5)
+					UICorner_2.Parent = SliderF
+
+					Frame.Parent = SliderF
+					Frame.AnchorPoint = Vector2.new(0, 1)
+					Frame.BackgroundColor3 = Color3.fromRGB(25, 25, 25)
+					Frame.BorderColor3 = Color3.fromRGB(0, 0, 0)
+					Frame.BorderSizePixel = 0
+					Frame.Position = UDim2.new(0, 0, 0.0892358944, 0)
+					Frame.Size = UDim2.new(1, 0, 0, 4)
+
+					UICorner_3.CornerRadius = UDim.new(0, 5)
+					UICorner_3.Parent = Frame
+
+					Slider_2.Name = "Slider"
+					Slider_2.Parent = SliderF
+					Slider_2.Active = true
+					Slider_2.BackgroundColor3 = Color3.fromRGB(34, 34, 34)
+					Slider_2.BorderColor3 = Color3.fromRGB(0, 0, 0)
+					Slider_2.BorderSizePixel = 0
+					Slider_2.Position = UDim2.new(0.0282776356, 0, 0.0794512108, 0)
+					Slider_2.Selectable = true
+					Slider_2.Size = UDim2.new(0, 367, 0, 30)
+					Slider_2.ZIndex = 2
+
+					UICorner_4.CornerRadius = UDim.new(0, 5)
+					UICorner_4.Parent = Slider_2
+
+					TextButton.Parent = Slider_2
+					TextButton.BackgroundColor3 = Color3.fromRGB(194, 194, 194)
+					TextButton.BorderColor3 = Color3.fromRGB(0, 0, 0)
+					TextButton.BorderSizePixel = 0
+					TextButton.Size = UDim2.new(0.0829999968, 0, 1, 0)
+					TextButton.ZIndex = 3
+					TextButton.Font = Enum.Font.Code
+					TextButton.Text = ""
+					TextButton.TextColor3 = Color3.fromRGB(0, 0, 0)
+					TextButton.TextSize = 20.000
+
+					UICorner_5.CornerRadius = UDim.new(0, 5)
+					UICorner_5.Parent = TextButton
+					
+					TextButton.MouseButton1Down:Connect(function()
+						SliderOp.Dragging = true
+					end)
+
+					function SliderOp.ChangeToValue(Percent)
+						local Value = math.floor(Percent*oargs.MaxValue)
+						return Value
+					end
+
+					UIS.InputChanged:Connect(function()
+						if SliderOp.Dragging then
+							local MousePos = UIS:GetMouseLocation()+Vector2.new(0,-36)
+							local RelPos = MousePos-Slider_2.AbsolutePosition
+							SliderOp.Value = math.clamp(RelPos.X/Slider_2.AbsoluteSize.X,0,1)
+
+							TextButton.Position = UDim2.new(SliderOp.Value,0,TextButton.Position.Y.Scale,0)
+							local FinalValue = SliderOp.ChangeToValue(SliderOp.Value)
+
+							SliderOp.Value = FinalValue
+							SliderValue.Text = tostring(SliderOp.Value)
+							oargs.Callback(SliderOp.Value)
+						end
+					end)
+
+					UIS.InputEnded:Connect(function(input)
+						if input.UserInputType == Enum.UserInputType.MouseButton1 then
+							SliderOp.Dragging = false
+						end
+					end)
+					
+					return SliderOp
+				end
+				
 				return Tab_
 			end
 			
