@@ -1,3 +1,4 @@
+local UIS = game:GetService("UserInputService")
 local lib = {Tabs = {}, Loaded = false}
 
 lib.NewLibrary = function(ver)
@@ -5,6 +6,7 @@ lib.NewLibrary = function(ver)
 	local NoviHub1_ScrGui
 	
 	do
+		
 		NoviHub1_ScrGui = Instance.new("ScreenGui")
 		local NoviHub1 = Instance.new("Frame")
 		local NoviHub1_TextLabel = Instance.new("TextLabel")
@@ -140,6 +142,39 @@ lib.NewLibrary = function(ver)
 			UIListLayout.Parent = ScrollingFrame
 			UIListLayout.HorizontalAlignment = Enum.HorizontalAlignment.Center
 			UIListLayout.SortOrder = Enum.SortOrder.LayoutOrder
+			
+			local dragToggle = nil
+			local dragSpeed = 0.15
+			local dragInput = nil
+			local dragStart = nil
+			local dragPos = nil
+			local function updateInput(input)
+				local Delta = input.Position - dragStart
+				local Position = UDim2.new(startPos.X.Scale, startPos.X.Offset + Delta.X, startPos.Y.Scale, startPos.Y.Offset + Delta.Y)
+				game:GetService("TweenService"):Create(Frame, TweenInfo.new(oargs.DragSpeed / 100), {Position = Position}):Play()
+			end
+			Frame.InputBegan:Connect(function(input)
+				if (input.UserInputType == Enum.UserInputType.MouseButton1 or input.UserInputType == Enum.UserInputType.Touch) and UIS:GetFocusedTextBox() == nil then
+					dragToggle = true
+					dragStart = input.Position
+					startPos = Frame.Position
+					input.Changed:Connect(function()
+						if input.UserInputState == Enum.UserInputState.End then
+							dragToggle = false
+						end
+					end)
+				end
+			end)
+			Frame.InputChanged:Connect(function(input)
+				if input.UserInputType == Enum.UserInputType.MouseMovement or input.UserInputType == Enum.UserInputType.Touch then
+					dragInput = input
+				end
+			end)
+			game:GetService("UserInputService").InputChanged:Connect(function(input)
+				if input == dragInput and dragToggle then
+					updateInput(input)
+				end
+			end)
 			
 			function NewGui:NewTab(name)
 				local Tab_ = {Active = false, Name = name, Button = nil, ContentN = nil}
