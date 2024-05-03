@@ -135,9 +135,10 @@ lib.NewLibrary = function(ver)
 			ScrollingFrame.BackgroundTransparency = 1.000
 			ScrollingFrame.BorderColor3 = Color3.fromRGB(0, 0, 0)
 			ScrollingFrame.BorderSizePixel = 0
-			ScrollingFrame.ClipsDescendants = false
+			ScrollingFrame.ClipsDescendants = true
 			ScrollingFrame.Size = UDim2.new(1, 0, 1, 0)
 			ScrollingFrame.ScrollBarThickness = 0
+			ScrollingFrame.CanvasSize = Udim2.new(0, 0, 0, 0)
 
 			UIListLayout.Parent = ScrollingFrame
 			UIListLayout.HorizontalAlignment = Enum.HorizontalAlignment.Center
@@ -263,9 +264,10 @@ lib.NewLibrary = function(ver)
 				ScrollingFrame_6.BackgroundTransparency = 1.000
 				ScrollingFrame_6.BorderColor3 = Color3.fromRGB(0, 0, 0)
 				ScrollingFrame_6.BorderSizePixel = 0
-				ScrollingFrame_6.ClipsDescendants = false
+				ScrollingFrame_6.ClipsDescendants = true
 				ScrollingFrame_6.Size = UDim2.new(1, 0, 1, 0)
 				ScrollingFrame_6.ScrollBarThickness = 0
+				ScrollingFrame_6.CanvasSize = Udim2.new(0, 0, 0, 0)
 
 				UIListLayout_5.Parent = ScrollingFrame_6
 				UIListLayout_5.HorizontalAlignment = Enum.HorizontalAlignment.Center
