@@ -65,6 +65,7 @@ lib.NewLibrary = function(ver)
 			local UiStroke3 = Instance.new("UIStroke")
 			local TextLabel = Instance.new("TextLabel")
 			local UIListLayout = Instance.new("UIListLayout")
+			local UIGradient = Instance.new("UIGradient")
 			
 			
 
@@ -143,6 +144,23 @@ lib.NewLibrary = function(ver)
 			UIListLayout.Parent = ScrollingFrame
 			UIListLayout.HorizontalAlignment = Enum.HorizontalAlignment.Center
 			UIListLayout.SortOrder = Enum.SortOrder.LayoutOrder
+			
+			UIGradient.Color = ColorSequence.new{ColorSequenceKeypoint.new(0.00, Color3.fromRGB(25, 25, 25)), ColorSequenceKeypoint.new(1.00, Color3.fromRGB(28, 28, 28))}
+			UIGradient.Rotation = 98
+			UIGradient.Parent = TabHolder
+			
+			if not oargs.Gradient[1] then
+				UIGradient:Destroy()
+			else 
+				TabHolder.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+				if oargs.Gradient.Rotate then
+					task.spawn(function()
+						while task.wait() do
+							UIGradient.Rotation += oargs.Gradient.RotateSpeed
+						end 
+					end) 
+				end 
+			end
 			
 			local dragToggle = nil
 			local dragSpeed = 0.15
@@ -436,7 +454,7 @@ lib.NewLibrary = function(ver)
 				end
 				
 				function Tab_:NewSlider(name, oargs)
-					local SliderOp = {Name = "", MaxValue = 1, MinValue = 0, Value = 0, Callback = function() end}
+					local SliderOp = {Name = oargs.Name, MaxValue = oargs.MaxValue, MinValue = 0, Value = 1, Callback = oargs.Callback}
 					
 					local Slider = Instance.new("Frame")
 					local UICorner = Instance.new("UICorner")
@@ -458,7 +476,7 @@ lib.NewLibrary = function(ver)
 					Slider.BorderSizePixel = 0
 					Slider.ClipsDescendants = true
 					Slider.Position = UDim2.new(0.0125668179, 0, 0.194594204, 0)
-					Slider.Size = UDim2.new(0, 389, 0, 79)
+					Slider.Size = UDim2.new(0, 389, 0, 61)
 
 					UICorner.CornerRadius = UDim.new(0, 5)
 					UICorner.Parent = Slider
@@ -524,24 +542,26 @@ lib.NewLibrary = function(ver)
 					Slider_2.BackgroundColor3 = Color3.fromRGB(34, 34, 34)
 					Slider_2.BorderColor3 = Color3.fromRGB(0, 0, 0)
 					Slider_2.BorderSizePixel = 0
-					Slider_2.Position = UDim2.new(0.0282776356, 0, 0.0794512108, 0)
+					Slider_2.Position = UDim2.new(0.028, 0,0.326, 0)
 					Slider_2.Selectable = true
-					Slider_2.Size = UDim2.new(0, 367, 0, 30)
+					Slider_2.Size = UDim2.new(0, 367, 0, 11)
 					Slider_2.ZIndex = 2
 
 					UICorner_4.CornerRadius = UDim.new(0, 5)
 					UICorner_4.Parent = Slider_2
 
 					TextButton.Parent = Slider_2
-					TextButton.BackgroundColor3 = Color3.fromRGB(194, 194, 194)
+					TextButton.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
 					TextButton.BorderColor3 = Color3.fromRGB(0, 0, 0)
 					TextButton.BorderSizePixel = 0
-					TextButton.Size = UDim2.new(0.0829999968, 0, 1, 0)
+					TextButton.Size = UDim2.new(0.048, 0,1.553, 0)
 					TextButton.ZIndex = 3
 					TextButton.Font = Enum.Font.Code
 					TextButton.Text = ""
 					TextButton.TextColor3 = Color3.fromRGB(0, 0, 0)
 					TextButton.TextSize = 20.000
+					TextButton.Position = UDim2.new(0.022, 0,-0.318, 0)
+					TextButton.AnchorPoint = Vector2.new(0.5, 0)
 
 					UICorner_5.CornerRadius = UDim.new(0, 5)
 					UICorner_5.Parent = TextButton
@@ -551,13 +571,13 @@ lib.NewLibrary = function(ver)
 					end)
 
 					function SliderOp.ChangeToValue(Percent)
-						local Value = math.floor(Percent*oargs.MaxValue)
+						local Value = math.floor(Percent*SliderOp.MaxValue)
 						return Value
 					end
 
 					UIS.InputChanged:Connect(function()
 						if SliderOp.Dragging then
-							local MousePos = UIS:GetMouseLocation()+Vector2.new(0,-36)
+							local MousePos = UIS:GetMouseLocation()+Vector2.new(-5,-36)
 							local RelPos = MousePos-Slider_2.AbsolutePosition
 							SliderOp.Value = math.clamp(RelPos.X/Slider_2.AbsoluteSize.X,0,1)
 
@@ -566,7 +586,7 @@ lib.NewLibrary = function(ver)
 
 							SliderOp.Value = FinalValue
 							SliderValue.Text = tostring(SliderOp.Value)
-							oargs.Callback(SliderOp.Value)
+							SliderOp.Callback(SliderOp.Value)
 						end
 					end)
 
@@ -579,6 +599,112 @@ lib.NewLibrary = function(ver)
 					return SliderOp
 				end
 				
+				function Tab_:NewTextBox(name, oargs)
+					local TextBoxOP = {Name = name, FocusLost = oargs.FocusLost, Focused = oargs.Focused, Alignment = oargs.Alignment, PlaceHolderText = oargs.PlaceHolderText, DefaultText = oargs.DefaultText}
+					
+					local TextBox = Instance.new("Frame")
+					local UICorner = Instance.new("UICorner")
+					local ti = Instance.new("TextLabel")
+					local TextBoxF = Instance.new("Frame")
+					local UICorner_2 = Instance.new("UICorner")
+					local ScrollingFrame = Instance.new("ScrollingFrame")
+					local TextBox_2 = Instance.new("TextBox")
+					local UICorner_3 = Instance.new("UICorner")
+					local Frame = Instance.new("Frame")
+					local UICorner_4 = Instance.new("UICorner")
+					
+					TextBox.Name = TextBoxOP.Name
+					TextBox.Parent = options.ScrollingFrame
+					TextBox.BackgroundColor3 = Color3.fromRGB(24, 24, 24)
+					TextBox.BorderColor3 = Color3.fromRGB(0, 0, 0)
+					TextBox.BorderSizePixel = 0
+					TextBox.ClipsDescendants = true
+					TextBox.Position = UDim2.new(0.0125668179, 0, 0.194594204, 0)
+					TextBox.Size = UDim2.new(0, 389, 0, 61)
+
+					UICorner.CornerRadius = UDim.new(0, 5)
+					UICorner.Parent = TextBox
+
+					ti.Name = "ti"
+					ti.Parent = TextBox
+					ti.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+					ti.BackgroundTransparency = 1.000
+					ti.BorderColor3 = Color3.fromRGB(0, 0, 0)
+					ti.BorderSizePixel = 0
+					ti.Position = UDim2.new(0.0240357704, 0, 0.103102386, 0)
+					ti.Size = UDim2.new(0.85771215, 0, 0.345885962, 0)
+					ti.Font = Enum.Font.Gotham
+					ti.Text = TextBoxOP.Name
+					ti.TextColor3 = Color3.fromRGB(255, 255, 255)
+					ti.TextSize = 19.000
+					ti.TextWrapped = true
+					ti.TextXAlignment = Enum.TextXAlignment.Left
+
+					TextBoxF.Name = "TextBoxF"
+					TextBoxF.Parent = TextBox
+					TextBoxF.AnchorPoint = Vector2.new(0, 1)
+					TextBoxF.BackgroundColor3 = Color3.fromRGB(25, 25, 25)
+					TextBoxF.BorderColor3 = Color3.fromRGB(0, 0, 0)
+					TextBoxF.BorderSizePixel = 0
+					TextBoxF.ClipsDescendants = true
+					TextBoxF.Position = UDim2.new(0, 0, 1.00000036, 0)
+					TextBoxF.Size = UDim2.new(1, 0, 0.567405224, 0)
+
+					UICorner_2.CornerRadius = UDim.new(0, 5)
+					UICorner_2.Parent = TextBoxF
+
+					ScrollingFrame.Parent = TextBoxF
+					ScrollingFrame.Active = true
+					ScrollingFrame.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+					ScrollingFrame.BackgroundTransparency = 1.000
+					ScrollingFrame.BorderColor3 = Color3.fromRGB(0, 0, 0)
+					ScrollingFrame.BorderSizePixel = 0
+					ScrollingFrame.Position = UDim2.new(0.0255757701, 0, 0.0312161427, 0)
+					ScrollingFrame.Size = UDim2.new(0.930999994, 0, 0.737460017, 0)
+					ScrollingFrame.ZIndex = 5
+					ScrollingFrame.BottomImage = "rbxasset://textures/ui/Scroll/scroll-middle.png"
+					ScrollingFrame.CanvasSize = UDim2.new(0, 2, 0, 0)
+					ScrollingFrame.ScrollBarThickness = 4
+					ScrollingFrame.TopImage = "rbxasset://textures/ui/Scroll/scroll-middle.png"
+					ScrollingFrame.AutomaticCanvasSize = Enum.AutomaticSize.X
+
+					TextBox_2.Parent = ScrollingFrame
+					TextBox_2.BackgroundColor3 = Color3.fromRGB(58, 58, 58)
+					TextBox_2.BorderColor3 = Color3.fromRGB(0, 0, 0)
+					TextBox_2.BorderSizePixel = 0
+					TextBox_2.Size = UDim2.new(0.999560952, 0, 0.843289554, 0)
+					TextBox_2.Font = Enum.Font.Code
+					TextBox_2.PlaceholderColor3 = Color3.fromRGB(255, 255, 255)
+					TextBox_2.PlaceholderText = TextBoxOP.PlaceHolderText or "Insert Text"
+					TextBox_2.Text = TextBoxOP.DefaultText or ""
+					TextBox_2.TextColor3 = Color3.fromRGB(255, 255, 255)
+					TextBox_2.TextSize = 14.000
+					TextBox_2.AutomaticSize = Enum.AutomaticSize.X
+					TextBox_2.TextXAlignment = Enum.TextXAlignment[TextBoxOP.Alignment]
+
+					UICorner_3.CornerRadius = UDim.new(0, 3)
+					UICorner_3.Parent = TextBox_2
+
+					Frame.Parent = TextBoxF
+					Frame.AnchorPoint = Vector2.new(0, 1)
+					Frame.BackgroundColor3 = Color3.fromRGB(25, 25, 25)
+					Frame.BorderColor3 = Color3.fromRGB(0, 0, 0)
+					Frame.BorderSizePixel = 0
+					Frame.Position = UDim2.new(0, 0, 0.0892358944, 0)
+					Frame.Size = UDim2.new(1, 0, 0, 4)
+
+					UICorner_4.CornerRadius = UDim.new(0, 5)
+					UICorner_4.Parent = Frame
+					
+					TextBox_2.FocusLost:Connect(function()
+						TextBoxOP.FocusLost(TextBox_2.Text)
+					end)
+					
+					TextBox_2.Focused:Connect(TextBoxOP.Focused)
+					
+					return TextBoxOP
+				end
+				
 				return Tab_
 			end
 			
@@ -588,5 +714,3 @@ lib.NewLibrary = function(ver)
 	
 	return Loader
 end
-
-return lib
