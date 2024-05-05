@@ -140,6 +140,7 @@ lib.NewLibrary = function(ver)
 			ScrollingFrame.Size = UDim2.new(1, 0, 1, 0)
 			ScrollingFrame.ScrollBarThickness = 0
 			ScrollingFrame.CanvasSize = UDim2.new(0, 0, 0, 0)
+			ScrollingFrame.AutomaticCanvasSize = Enum.AutomaticSize.Y
 
 			UIListLayout.Parent = ScrollingFrame
 			UIListLayout.HorizontalAlignment = Enum.HorizontalAlignment.Center
@@ -283,9 +284,14 @@ lib.NewLibrary = function(ver)
 				ScrollingFrame_6.BorderColor3 = Color3.fromRGB(0, 0, 0)
 				ScrollingFrame_6.BorderSizePixel = 0
 				ScrollingFrame_6.ClipsDescendants = true
-				ScrollingFrame_6.Size = UDim2.new(1, 0, 1, 0)
+				ScrollingFrame_6.Size = UDim2.new(1, 0, 1, -2)
 				ScrollingFrame_6.ScrollBarThickness = 0
 				ScrollingFrame_6.CanvasSize = UDim2.new(0, 0, 0, 0)
+				ScrollingFrame_6.AutomaticCanvasSize = Enum.AutomaticSize.Y
+				local Fixer = Instance.new("Frame")
+				Fixer.Parent = ScrollingFrame_6
+				Fixer.Size = UDim2.new(1, 0, 0, 0.1)
+				Fixer.BackgroundTransparency = 1
 
 				UIListLayout_5.Parent = ScrollingFrame_6
 				UIListLayout_5.HorizontalAlignment = Enum.HorizontalAlignment.Center
@@ -326,6 +332,7 @@ lib.NewLibrary = function(ver)
 					local fix = Instance.new("Frame")
 					local toggled = Instance.new("TextLabel")
 					local hit = Instance.new("TextButton")
+					local UIStroke = Instance.new("UIStroke")
 					
 					Toggle.Name = "Toggle"
 					Toggle.Parent = options.ScrollingFrame
@@ -335,6 +342,7 @@ lib.NewLibrary = function(ver)
 					Toggle.ClipsDescendants = true
 					Toggle.Position = UDim2.new(0.0125668179, 0, 0, 0)
 					Toggle.Size = UDim2.new(0, 389, 0, 40)
+					Toggle.BackgroundTransparency = 1
 
 					UICorner.CornerRadius = UDim.new(0, 5)
 					UICorner.Parent = Toggle
@@ -365,7 +373,7 @@ lib.NewLibrary = function(ver)
 					toggled.BorderSizePixel = 0
 					toggled.Position = UDim2.new(0.0394599363, 0, 0.150000006, 0)
 					toggled.Size = UDim2.new(0.85771215, 0, 0.675000012, 0)
-					toggled.Font = Enum.Font.Gotham
+					toggled.Font = Enum.Font.Code
 					toggled.Text = name
 					toggled.TextColor3 = Color3.fromRGB(255, 255, 255)
 					toggled.TextSize = 19.000
@@ -384,6 +392,10 @@ lib.NewLibrary = function(ver)
 					hit.Text = ""
 					hit.TextColor3 = Color3.fromRGB(0, 0, 0)
 					hit.TextSize = 14.000
+					
+					UIStroke.Parent = Toggle
+					UIStroke.Color = Color3.fromRGB(77, 77, 77)
+					UIStroke.ApplyStrokeMode = Enum.ApplyStrokeMode.Border
 					
 					hit.MouseButton1Click:Connect(function()
 						Tog.Enabled = not Tog.Enabled
@@ -402,6 +414,7 @@ lib.NewLibrary = function(ver)
 					local UICorner = Instance.new("UICorner")
 					local toggled = Instance.new("TextLabel")
 					local hit = Instance.new("TextButton")
+					local UIStroke = Instance.new("UIStroke")
 
 					Toggle.Name = "Toggle"
 					Toggle.Parent = options.ScrollingFrame
@@ -411,7 +424,7 @@ lib.NewLibrary = function(ver)
 					Toggle.ClipsDescendants = true
 					Toggle.Position = UDim2.new(0.0125668179, 0, 0, 0)
 					Toggle.Size = UDim2.new(0, 389, 0, 40)
-
+					Toggle.BackgroundTransparency = 1
 					UICorner.CornerRadius = UDim.new(0, 5)
 					UICorner.Parent = Toggle
 
@@ -423,7 +436,7 @@ lib.NewLibrary = function(ver)
 					toggled.BorderSizePixel = 0
 					toggled.Position = UDim2.new(0.0394599363, 0, 0.150000006, 0)
 					toggled.Size = UDim2.new(0.85771215, 0, 0.675000012, 0)
-					toggled.Font = Enum.Font.Gotham
+					toggled.Font = Enum.Font.Code
 					toggled.Text = name
 					toggled.TextColor3 = Color3.fromRGB(255, 255, 255)
 					toggled.TextSize = 19.000
@@ -442,12 +455,16 @@ lib.NewLibrary = function(ver)
 					hit.Text = ""
 					hit.TextColor3 = Color3.fromRGB(0, 0, 0)
 					hit.TextSize = 14.000
+					
+					UIStroke.Parent = Toggle
+					UIStroke.Color = Color3.fromRGB(77, 77, 77)
+					UIStroke.ApplyStrokeMode = Enum.ApplyStrokeMode.Border
 
 					hit.MouseButton1Click:Connect(function()
 						oargs.Callback(button.Enabled)
-						game:GetService("TweenService"):Create(Toggle, TweenInfo.new(0.15, Enum.EasingStyle.Sine), {BackgroundColor3 = Color3.fromRGB(30, 30, 30) or Color3.fromRGB(36, 36, 36)}):Play()
-						task.wait(0.15)
-						game:GetService("TweenService"):Create(Toggle, TweenInfo.new(0.15, Enum.EasingStyle.Quint), {BackgroundColor3 = Color3.fromRGB(24, 24, 24)}):Play()
+						-- its transparent anyway and im not doing a fix so cope / game:GetService("TweenService"):Create(Toggle, TweenInfo.new(0.15, Enum.EasingStyle.Sine), {BackgroundColor3 = Color3.fromRGB(30, 30, 30) or Color3.fromRGB(36, 36, 36)}):Play()
+						-- its transparent anyway and im not doing a fix so cope / task.wait(0.15)
+						-- its transparent anyway and im not doing a fix so cope / game:GetService("TweenService"):Create(Toggle, TweenInfo.new(0.15, Enum.EasingStyle.Quint), {BackgroundColor3 = Color3.fromRGB(24, 24, 24)}):Play()
 					end)
 
 					return button
@@ -462,12 +479,12 @@ lib.NewLibrary = function(ver)
 					local SliderValue = Instance.new("TextLabel")
 					local SliderF = Instance.new("Frame")
 					local UICorner_2 = Instance.new("UICorner")
-					local Frame = Instance.new("Frame")
 					local UICorner_3 = Instance.new("UICorner")
 					local Slider_2 = Instance.new("Frame")
 					local UICorner_4 = Instance.new("UICorner")
 					local TextButton = Instance.new("TextButton")
 					local UICorner_5 = Instance.new("UICorner")
+					local UIStroke = Instance.new("UIStroke")
 					
 					Slider.Name = "Slider"
 					Slider.Parent = options.ScrollingFrame
@@ -477,6 +494,7 @@ lib.NewLibrary = function(ver)
 					Slider.ClipsDescendants = true
 					Slider.Position = UDim2.new(0.0125668179, 0, 0.194594204, 0)
 					Slider.Size = UDim2.new(0, 389, 0, 61)
+					Slider.BackgroundTransparency = 1
 
 					UICorner.CornerRadius = UDim.new(0, 5)
 					UICorner.Parent = Slider
@@ -489,7 +507,7 @@ lib.NewLibrary = function(ver)
 					toggled.BorderSizePixel = 0
 					toggled.Position = UDim2.new(0.0394599363, 0, 0.0867089406, 0)
 					toggled.Size = UDim2.new(0.85771215, 0, 0.345885962, 0)
-					toggled.Font = Enum.Font.Gotham
+					toggled.Font = Enum.Font.Code
 					toggled.Text = name
 					toggled.TextColor3 = Color3.fromRGB(255, 255, 255)
 					toggled.TextSize = 19.000
@@ -505,7 +523,7 @@ lib.NewLibrary = function(ver)
 					SliderValue.BorderSizePixel = 0
 					SliderValue.Position = UDim2.new(0.982005119, 0, 0.0867089406, 0)
 					SliderValue.Size = UDim2.new(0.323007762, 0, 0.345885962, 0)
-					SliderValue.Font = Enum.Font.Gotham
+					SliderValue.Font = Enum.Font.Code
 					SliderValue.Text = SliderOp.Value
 					SliderValue.TextColor3 = Color3.fromRGB(255, 255, 255)
 					SliderValue.TextSize = 19.000
@@ -521,20 +539,13 @@ lib.NewLibrary = function(ver)
 					SliderF.ClipsDescendants = true
 					SliderF.Position = UDim2.new(0, 0, 1.00000036, 0)
 					SliderF.Size = UDim2.new(1, 0, 0.567405224, 0)
+					SliderF.BackgroundTransparency = 1
 
 					UICorner_2.CornerRadius = UDim.new(0, 5)
 					UICorner_2.Parent = SliderF
 
-					Frame.Parent = SliderF
-					Frame.AnchorPoint = Vector2.new(0, 1)
-					Frame.BackgroundColor3 = Color3.fromRGB(25, 25, 25)
-					Frame.BorderColor3 = Color3.fromRGB(0, 0, 0)
-					Frame.BorderSizePixel = 0
-					Frame.Position = UDim2.new(0, 0, 0.0892358944, 0)
-					Frame.Size = UDim2.new(1, 0, 0, 4)
-
-					UICorner_3.CornerRadius = UDim.new(0, 5)
-					UICorner_3.Parent = Frame
+					--[[UICorner_3.CornerRadius = UDim.new(0, 5)
+					UICorner_3.Parent = Frame--]] --idek wtf this is ? dont remember putting that there.
 
 					Slider_2.Name = "Slider"
 					Slider_2.Parent = SliderF
@@ -565,6 +576,10 @@ lib.NewLibrary = function(ver)
 
 					UICorner_5.CornerRadius = UDim.new(0, 5)
 					UICorner_5.Parent = TextButton
+					
+					UIStroke.Parent = Slider
+					UIStroke.Color = Color3.fromRGB(77, 77, 77)
+					UIStroke.ApplyStrokeMode = Enum.ApplyStrokeMode.Border
 					
 					TextButton.MouseButton1Down:Connect(function()
 						SliderOp.Dragging = true
@@ -610,8 +625,8 @@ lib.NewLibrary = function(ver)
 					local ScrollingFrame = Instance.new("ScrollingFrame")
 					local TextBox_2 = Instance.new("TextBox")
 					local UICorner_3 = Instance.new("UICorner")
-					local Frame = Instance.new("Frame")
 					local UICorner_4 = Instance.new("UICorner")
+					local UIStroke = Instance.new("UIStroke")
 					
 					TextBox.Name = TextBoxOP.Name
 					TextBox.Parent = options.ScrollingFrame
@@ -621,6 +636,7 @@ lib.NewLibrary = function(ver)
 					TextBox.ClipsDescendants = true
 					TextBox.Position = UDim2.new(0.0125668179, 0, 0.194594204, 0)
 					TextBox.Size = UDim2.new(0, 389, 0, 61)
+					TextBox.BackgroundTransparency = 1
 
 					UICorner.CornerRadius = UDim.new(0, 5)
 					UICorner.Parent = TextBox
@@ -633,7 +649,7 @@ lib.NewLibrary = function(ver)
 					ti.BorderSizePixel = 0
 					ti.Position = UDim2.new(0.0240357704, 0, 0.103102386, 0)
 					ti.Size = UDim2.new(0.85771215, 0, 0.345885962, 0)
-					ti.Font = Enum.Font.Gotham
+					ti.Font = Enum.Font.Code
 					ti.Text = TextBoxOP.Name
 					ti.TextColor3 = Color3.fromRGB(255, 255, 255)
 					ti.TextSize = 19.000
@@ -649,6 +665,7 @@ lib.NewLibrary = function(ver)
 					TextBoxF.ClipsDescendants = true
 					TextBoxF.Position = UDim2.new(0, 0, 1.00000036, 0)
 					TextBoxF.Size = UDim2.new(1, 0, 0.567405224, 0)
+					TextBoxF.BackgroundTransparency = 1
 
 					UICorner_2.CornerRadius = UDim.new(0, 5)
 					UICorner_2.Parent = TextBoxF
@@ -681,20 +698,17 @@ lib.NewLibrary = function(ver)
 					TextBox_2.TextSize = 14.000
 					TextBox_2.AutomaticSize = Enum.AutomaticSize.X
 					TextBox_2.TextXAlignment = Enum.TextXAlignment[TextBoxOP.Alignment]
+					TextBox_2.BackgroundTransparency = 1
 
 					UICorner_3.CornerRadius = UDim.new(0, 3)
 					UICorner_3.Parent = TextBox_2
 
-					Frame.Parent = TextBoxF
-					Frame.AnchorPoint = Vector2.new(0, 1)
-					Frame.BackgroundColor3 = Color3.fromRGB(25, 25, 25)
-					Frame.BorderColor3 = Color3.fromRGB(0, 0, 0)
-					Frame.BorderSizePixel = 0
-					Frame.Position = UDim2.new(0, 0, 0.0892358944, 0)
-					Frame.Size = UDim2.new(1, 0, 0, 4)
-
-					UICorner_4.CornerRadius = UDim.new(0, 5)
-					UICorner_4.Parent = Frame
+					--[[UICorner_4.CornerRadius = UDim.new(0, 5)
+					UICorner_4.Parent = Frame--]] --and again
+					
+					UIStroke.Parent = TextBox
+					UIStroke.Color = Color3.fromRGB(77, 77, 77)
+					UIStroke.ApplyStrokeMode = Enum.ApplyStrokeMode.Border
 					
 					TextBox_2.FocusLost:Connect(function()
 						TextBoxOP.FocusLost(TextBox_2.Text)
@@ -703,6 +717,168 @@ lib.NewLibrary = function(ver)
 					TextBox_2.Focused:Connect(TextBoxOP.Focused)
 					
 					return TextBoxOP
+				end
+				
+				function Tab_:NewDropDown(name, oargs)
+					local DropDown = {Name = name, List = oargs.List, Pressed = false, Selected = nil, TotalSize = 40, OTotalSize = 20, SelectCallback = oargs.SelectCallback}
+					
+					local Dropdown = Instance.new("Frame")
+					local UICorner = Instance.new("UICorner")
+					local DropdownName = Instance.new("TextLabel")
+					local hit = Instance.new("TextButton")
+					local Indicator = Instance.new("ImageLabel")
+					local DropdownSelected = Instance.new("TextLabel")
+					local UiStroke = Instance.new("UIStroke")
+					local dropdownoptions = Instance.new("Frame")
+					local dropdownoptions = Instance.new("Frame")
+					local UIListLayout_2 = Instance.new("UIListLayout")
+					
+					Dropdown.Name = "Dropdown"
+					Dropdown.Parent = options.ScrollingFrame
+					Dropdown.BackgroundColor3 = Color3.fromRGB(24, 24, 24)
+					Dropdown.BackgroundTransparency = 1.000
+					Dropdown.BorderColor3 = Color3.fromRGB(0, 0, 0)
+					Dropdown.BorderSizePixel = 0
+					Dropdown.ClipsDescendants = true
+					Dropdown.Position = UDim2.new(0.0125668179, 0, 0, 0)
+					Dropdown.Size = UDim2.new(0, 389, 0, 40)
+					Dropdown.ClipsDescendants = true
+
+					UICorner.CornerRadius = UDim.new(0, 5)
+					UICorner.Parent = Dropdown
+
+					DropdownName.Name = name
+					DropdownName.Parent = Dropdown
+					DropdownName.AnchorPoint = Vector2.new(0, 1)
+					DropdownName.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+					DropdownName.BackgroundTransparency = 1.000
+					DropdownName.BorderColor3 = Color3.fromRGB(0, 0, 0)
+					DropdownName.BorderSizePixel = 0
+					DropdownName.Position = UDim2.new(0, 11, 0, 32)
+					DropdownName.Size = UDim2.new(0, 333, 0, 27)
+					DropdownName.Font = Enum.Font.Gotham
+					DropdownName.Text = name
+					DropdownName.TextColor3 = Color3.fromRGB(255, 255, 255)
+					DropdownName.TextSize = 19.000
+					DropdownName.TextWrapped = true
+					DropdownName.TextXAlignment = Enum.TextXAlignment.Left
+					
+
+					hit.Name = "hit"
+					hit.Parent = Dropdown
+					hit.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+					hit.BackgroundTransparency = 1.000
+					hit.BorderColor3 = Color3.fromRGB(0, 0, 0)
+					hit.BorderSizePixel = 0
+					hit.Size = UDim2.new(1, 0, 0, 40)
+					hit.ZIndex = 1234567890
+					hit.Font = Enum.Font.SourceSans
+					hit.Text = ""
+					hit.TextColor3 = Color3.fromRGB(0, 0, 0)
+					hit.TextSize = 14.000
+
+					Indicator.Name = "Indicator"
+					Indicator.Parent = Dropdown
+					Indicator.AnchorPoint = Vector2.new(0, 1)
+					Indicator.BackgroundColor3 = Color3.fromRGB(34, 34, 34)
+					Indicator.BackgroundTransparency = 2.000
+					Indicator.BorderColor3 = Color3.fromRGB(0, 0, 0)
+					Indicator.BorderSizePixel = 0
+					Indicator.Position = UDim2.new(0, 356, 0, 30)
+					Indicator.Rotation = 90.000
+					Indicator.Size = UDim2.new(0, 23, 0, 23)
+					Indicator.Image = "http://www.roblox.com/asset/?id=6034818375"
+					Indicator.ImageColor3 = Color3.fromRGB(113, 113, 113)
+					
+					DropdownSelected.Name = "DropdownSelected"
+					DropdownSelected.Parent = Dropdown
+					DropdownSelected.AnchorPoint = Vector2.new(0, 1)
+					DropdownSelected.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+					DropdownSelected.BackgroundTransparency = 1.000
+					DropdownSelected.BorderColor3 = Color3.fromRGB(0, 0, 0)
+					DropdownSelected.BorderSizePixel = 0
+					DropdownSelected.Position = UDim2.new(0, 201, 0, 32)
+					DropdownSelected.Size = UDim2.new(0, 143, 0, 27)
+					DropdownSelected.Font = Enum.Font.Code
+					DropdownSelected.Text = "Selected"
+					DropdownSelected.TextColor3 = Color3.fromRGB(121, 121, 121)
+					DropdownSelected.TextSize = 15.000
+					DropdownSelected.TextWrapped = true
+					DropdownSelected.TextXAlignment = Enum.TextXAlignment.Right
+					
+					UiStroke.Parent = Dropdown
+					UiStroke.Color = Color3.fromRGB(77, 77, 77)
+					UiStroke.ApplyStrokeMode = Enum.ApplyStrokeMode.Border
+					
+					dropdownoptions.Name = "dropdownoptions"
+					dropdownoptions.Parent = Dropdown
+					dropdownoptions.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+					dropdownoptions.BackgroundTransparency = 1.000
+					dropdownoptions.BorderColor3 = Color3.fromRGB(0, 0, 0)
+					dropdownoptions.BorderSizePixel = 0
+					dropdownoptions.Position = UDim2.new(0.0282776356, 0, 0.400000006, 0)
+					dropdownoptions.Size = UDim2.new(0, 367, 0, 48)
+					
+					dropdownoptions.Name = "dropdownoptions"
+					dropdownoptions.Parent = Dropdown
+					dropdownoptions.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+					dropdownoptions.BackgroundTransparency = 1.000
+					dropdownoptions.BorderColor3 = Color3.fromRGB(0, 0, 0)
+					dropdownoptions.BorderSizePixel = 0
+					dropdownoptions.ClipsDescendants = false
+					dropdownoptions.Position = UDim2.new(0.0282776356, 0, 0, 30)
+					dropdownoptions.Selectable = false
+					dropdownoptions.Size = UDim2.new(1, 0, 0, 30)
+					--dropdownoptions.AutomaticSize = Enum.AutomaticSize.Y
+					dropdownoptions.Visible = false
+
+					UIListLayout_2.Parent = dropdownoptions
+					UIListLayout_2.HorizontalAlignment = Enum.HorizontalAlignment.Center
+					UIListLayout_2.SortOrder = Enum.SortOrder.LayoutOrder
+					UIListLayout.Padding = UDim.new(0, 0)
+					
+					function DropDown:Proper()
+						DropDown.Pressed = (not DropDown.Pressed)
+						dropdownoptions.Visible = DropDown.Pressed
+						game:GetService("TweenService"):Create(Indicator, TweenInfo.new(0.135, Enum.EasingStyle.Quint), {Rotation = DropDown.Pressed and 0 or 90}):Play()
+						--Dropdown.Size = (DropDown.Pressed and UDim2.new(Dropdown.Size.X.Scale, Dropdown.Size.X.Offset, Dropdown.Size.Y.Scale, DropDown.TotalSize) or UDim2.new(0, 389, 0, 40))
+						game:GetService("TweenService"):Create(Dropdown, TweenInfo.new(0.25, Enum.EasingStyle.Quint), {Size = (DropDown.Pressed and UDim2.new(Dropdown.Size.X.Scale, Dropdown.Size.X.Offset, Dropdown.Size.Y.Scale, DropDown.TotalSize) or UDim2.new(0, 389, 0, 40))}):Play()
+					end
+					
+					for i, v in DropDown.List do
+						local OptionButton = Instance.new("TextButton")
+						OptionButton.Name = "OptionButton"
+						OptionButton.Parent = dropdownoptions
+						OptionButton.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+						OptionButton.BackgroundTransparency = 1.000
+						OptionButton.BorderColor3 = Color3.fromRGB(0, 0, 0)
+						OptionButton.BorderSizePixel = 0
+						OptionButton.Position = UDim2.new(0, 0, 0, 0)
+						OptionButton.Size = UDim2.new(0, 347, 0, 20)
+						OptionButton.Font = Enum.Font.Code
+						OptionButton.TextColor3 = Color3.fromRGB(181, 181, 181)
+						OptionButton.TextSize = 18.000
+						OptionButton.Text = v
+						OptionButton.TextXAlignment = Enum.TextXAlignment.Left
+						OptionButton.TextYAlignment = Enum.TextYAlignment.Center
+						
+						DropDown.OTotalSize += 20
+						DropDown.TotalSize += 20
+						dropdownoptions.Size = UDim2.new(dropdownoptions.Size.X.Scale, dropdownoptions.Size.X.Offset, dropdownoptions.Size.Y.Scale, DropDown.OTotalSize)
+						
+						OptionButton.MouseButton1Click:Connect(function()
+							DropdownSelected.Text = (v)
+							DropDown.SelectCallback(v)
+							DropDown:Proper()
+						end)
+						
+					end
+					
+					hit.MouseButton1Click:Connect(function()
+						DropDown:Proper()
+					end)
+					
+					return DropDown
 				end
 				
 				return Tab_
@@ -715,4 +891,4 @@ lib.NewLibrary = function(ver)
 	return Loader
 end
 
-return lib
+return library
