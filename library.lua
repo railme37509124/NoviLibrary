@@ -891,4 +891,4 @@ lib.NewLibrary = function(ver)
 	return Loader
 end
 
-return library
+return lib
